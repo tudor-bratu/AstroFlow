@@ -1,17 +1,50 @@
 ---
-
+import Base from "../layouts/Base.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title="Client-First Astro Starter">
+	<section class="section_home-hero section-style-light section-spacing-huge">
+		<div class="padding-global">
+			<div class="container-medium">
+				<div class="home-hero_content">
+					<p
+						class="text-style-label text-color-brand margin-bottom-small"
+					>
+						Client-First v2 + Astro
+					</p>
+					<h1 class="margin-bottom-medium">Your Brand Starts Here</h1>
+					<p
+						class="text-color-secondary text-size-large margin-bottom-large max-width-medium"
+					>
+						A production-ready Astro starter with Finsweet's
+						Client-First v2 CSS system baked in. Every utility
+						class, naming convention, and layout structure — ready
+						to go.
+					</p>
+					<div class="home-hero_buttons">
+						<a href="/sandbox" class="button-primary is-large"
+							>Open Sandbox →</a
+						>
+						<a href="/styleguide" class="button-secondary is-large"
+							>View Styleguide</a
+						>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.home-hero_content {
+		text-align: center;
+		margin: 0 auto;
+	}
+
+	.home-hero_buttons {
+		display: flex;
+		gap: var(--spacing--small);
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+</style>

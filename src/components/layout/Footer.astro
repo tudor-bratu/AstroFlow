@@ -1,0 +1,90 @@
+---
+---
+
+<footer class="footer_component section-style-dark">
+    <div class="padding-global">
+        <div class="footer_container container-large">
+            <div class="footer_top-wrapper">
+                <div class="footer_brand-wrapper">
+                    <span class="footer_logo-text">Brand</span>
+                    <p class="footer_tagline text-color-muted text-size-small">
+                        Built with Client-First v2 + Astro
+                    </p>
+                </div>
+                <div class="footer_links-wrapper">
+                    <a href="/" class="footer_link">Home</a>
+                    <a href="/sandbox" class="footer_link">Sandbox</a>
+                    <a href="/styleguide" class="footer_link">Styleguide</a>
+                </div>
+            </div>
+            <div class="footer_bottom-wrapper">
+                <p
+                    class="footer_copyright-text text-size-xsmall text-color-muted"
+                >
+                    © {new Date().getFullYear()} Brand. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer_component {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer_container {
+        padding-top: var(--spacing--xxlarge);
+        padding-bottom: var(--spacing--large);
+    }
+
+    .footer_top-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: var(--spacing--xlarge);
+        padding-bottom: var(--spacing--large);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: var(--spacing--large);
+    }
+
+    .footer_logo-text {
+        font-size: var(--text-size-xlarge);
+        font-weight: 800;
+        font-family: var(--font-heading);
+        color: var(--color--text-inverted);
+        display: block;
+        margin-bottom: var(--spacing--xsmall);
+    }
+
+    .footer_tagline {
+        color: var(--color--neutral-500);
+    }
+
+    .footer_links-wrapper {
+        display: flex;
+        gap: var(--spacing--large);
+        flex-wrap: wrap;
+    }
+
+    .footer_link {
+        font-size: var(--text-size-small);
+        color: var(--color--neutral-400);
+        text-decoration: none;
+        transition: color var(--transition-fast);
+    }
+
+    .footer_link:hover {
+        color: var(--color--white);
+    }
+
+    .footer_copyright-text {
+        color: var(--color--neutral-600);
+    }
+
+    @media (max-width: 767px) {
+        .footer_top-wrapper {
+            flex-direction: column;
+        }
+    }
+</style>

@@ -1,0 +1,516 @@
+/* ============================================================
+   CLIENT-FIRST v2 — Global Styles Embed
+   Finsweet naming convention for Astro
+   ============================================================
+
+   HOW TO USE:
+   - Utility classes use DASHES only:  text-color-brand, margin-top-large
+   - Custom classes use UNDERSCORE:    hero_heading, nav_logo-wrapper
+   - Combo classes use is- prefix:     button-primary is-large
+   - Sections use underscore:          section_hero, section_features
+
+   CORE STRUCTURE (outer → inner):
+   page-wrapper > main-wrapper > section_[name] > padding-global > container-[size] > content
+   ============================================================ */
+
+/* ============================================================
+   GLOBAL EMBED CSS (mirrors Finsweet's embed block)
+   ============================================================ */
+
+/* 1. Font smoothing */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 2. Focus state for keyboard navigation */
+*[tabindex]:focus-visible,
+input[type="file"]:focus-visible {
+  outline: 0.125rem solid var(--base-color-system--focus-state, #2563eb);
+  outline-offset: 0.125rem;
+}
+
+/* 3. Force container centering */
+.container-small,
+.container-medium,
+.container-large {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+/* 4. Remove margin from last rich text child */
+.text-rich-text > *:last-child {
+  margin-bottom: 0;
+}
+
+/* 5. Inline-flex utility (not natively in Webflow) */
+.display-inlineflex {
+  display: inline-flex;
+}
+
+/* 6. Inherit color utility */
+.inherit-color * {
+  color: inherit;
+}
+
+/* 7. Spacing utility — reset */
+.spacing-clean {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 8. Pointer events */
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+
+/* 9. Layer utility (absolute fill) */
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES — Brand Variables
+   Edit these per project
+   ============================================================ */
+:root {
+  /* --- Brand Colors --- */
+  --color--brand:        #2563eb;
+  --color--brand-dark:   #1d4ed8;
+  --color--brand-light:  #eff6ff;
+
+  /* --- Neutrals --- */
+  --color--neutral-950:  #0a0a0a;
+  --color--neutral-900:  #171717;
+  --color--neutral-800:  #262626;
+  --color--neutral-700:  #404040;
+  --color--neutral-600:  #525252;
+  --color--neutral-500:  #737373;
+  --color--neutral-400:  #a3a3a3;
+  --color--neutral-300:  #d4d4d4;
+  --color--neutral-200:  #e5e5e5;
+  --color--neutral-100:  #f5f5f5;
+  --color--neutral-50:   #fafafa;
+  --color--white:        #ffffff;
+
+  /* --- Semantic Colors --- */
+  --color--bg-primary:   var(--color--white);
+  --color--bg-secondary: var(--color--neutral-50);
+  --color--bg-dark:      var(--color--neutral-950);
+  --color--text-primary: var(--color--neutral-950);
+  --color--text-secondary: var(--color--neutral-600);
+  --color--text-muted:   var(--color--neutral-400);
+  --color--text-inverted: var(--color--white);
+  --color--border:       var(--color--neutral-200);
+
+  /* --- Spacing --- */
+  --spacing--xsmall:  0.5rem;    /* 8px */
+  --spacing--small:   1rem;      /* 16px */
+  --spacing--medium:  1.5rem;    /* 24px */
+  --spacing--large:   2rem;      /* 32px */
+  --spacing--xlarge:  3rem;      /* 48px */
+  --spacing--xxlarge: 4rem;      /* 64px */
+  --spacing--huge:    6rem;      /* 96px */
+  --spacing--massive: 8rem;      /* 128px */
+
+  /* --- Padding Global (horizontal page padding) --- */
+  --padding-global:  clamp(1.25rem, 5vw, 3rem);
+
+  /* --- Container Widths --- */
+  --container-small:  48rem;   /* 768px */
+  --container-medium: 64rem;   /* 1024px */
+  --container-large:  80rem;   /* 1280px */
+
+  /* --- Typography --- */
+  --font-heading: 'Inter', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --text-size-xsmall:  0.75rem;   /* 12px */
+  --text-size-small:   0.875rem;  /* 14px */
+  --text-size-medium:  1rem;      /* 16px — base */
+  --text-size-large:   1.125rem;  /* 18px */
+  --text-size-xlarge:  1.25rem;   /* 20px */
+  --text-size-2xlarge: 1.5rem;    /* 24px */
+  --text-size-3xlarge: 1.875rem;  /* 30px */
+  --text-size-4xlarge: 2.25rem;   /* 36px */
+  --text-size-5xlarge: 3rem;      /* 48px */
+  --text-size-6xlarge: 3.75rem;   /* 60px */
+
+  /* --- Radius --- */
+  --radius-small:  0.375rem;
+  --radius-medium: 0.5rem;
+  --radius-large:  0.75rem;
+  --radius-xlarge: 1rem;
+  --radius-full:   9999px;
+
+  /* --- Transitions --- */
+  --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-medium: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:   400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Focus State --- */
+  --base-color-system--focus-state: var(--color--brand);
+}
+
+/* ============================================================
+   CORE STRUCTURE UTILITY CLASSES
+   ============================================================ */
+
+/* Page wrapper — outermost, wraps entire page */
+.page-wrapper {
+  overflow-x: hidden;
+}
+
+/* Main wrapper — wraps all sections except nav/footer */
+.main-wrapper {
+  /* optional styles applied here */
+}
+
+/* Padding global — horizontal page padding */
+.padding-global {
+  padding-left: var(--padding-global);
+  padding-right: var(--padding-global);
+}
+
+/* Container sizes — max-width content wrappers */
+.container-small {
+  width: 100%;
+  max-width: var(--container-small);
+}
+
+.container-medium {
+  width: 100%;
+  max-width: var(--container-medium);
+}
+
+.container-large {
+  width: 100%;
+  max-width: var(--container-large);
+}
+
+/* ============================================================
+   SECTION SPACING UTILITY CLASSES
+   section_[name] gets these add-on classes
+   ============================================================ */
+
+/* Vertical section padding sizes */
+.section-spacing-small  { padding-top: var(--spacing--xlarge);  padding-bottom: var(--spacing--xlarge); }
+.section-spacing-medium { padding-top: var(--spacing--xxlarge); padding-bottom: var(--spacing--xxlarge); }
+.section-spacing-large  { padding-top: var(--spacing--huge);    padding-bottom: var(--spacing--huge); }
+.section-spacing-huge   { padding-top: var(--spacing--massive); padding-bottom: var(--spacing--massive); }
+
+/* Section style variants */
+.section-style-light { background-color: var(--color--bg-primary); }
+.section-style-subtle { background-color: var(--color--bg-secondary); }
+.section-style-dark {
+  background-color: var(--color--bg-dark);
+  color: var(--color--text-inverted);
+}
+.section-style-brand {
+  background-color: var(--color--brand);
+  color: var(--color--white);
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITY CLASSES
+   ============================================================ */
+
+/* Heading style overrides — semantic tag + visual style decoupled */
+.heading-style-h1 { font-size: clamp(2.5rem, 5vw, var(--text-size-6xlarge)); font-weight: 800; line-height: 1.1; }
+.heading-style-h2 { font-size: clamp(2rem, 4vw, var(--text-size-5xlarge));   font-weight: 700; line-height: 1.15; }
+.heading-style-h3 { font-size: clamp(1.5rem, 3vw, var(--text-size-4xlarge)); font-weight: 700; line-height: 1.2; }
+.heading-style-h4 { font-size: var(--text-size-3xlarge); font-weight: 600; line-height: 1.3; }
+.heading-style-h5 { font-size: var(--text-size-2xlarge); font-weight: 600; line-height: 1.35; }
+.heading-style-h6 { font-size: var(--text-size-xlarge);  font-weight: 600; line-height: 1.4; }
+
+/* Text size utility classes */
+.text-size-xsmall  { font-size: var(--text-size-xsmall); }
+.text-size-small   { font-size: var(--text-size-small); }
+.text-size-medium  { font-size: var(--text-size-medium); }
+.text-size-large   { font-size: var(--text-size-large); }
+.text-size-xlarge  { font-size: var(--text-size-xlarge); }
+.text-size-2xlarge { font-size: var(--text-size-2xlarge); }
+
+/* Text color utility classes */
+.text-color-primary   { color: var(--color--text-primary); }
+.text-color-secondary { color: var(--color--text-secondary); }
+.text-color-muted     { color: var(--color--text-muted); }
+.text-color-inverted  { color: var(--color--text-inverted); }
+.text-color-brand     { color: var(--color--brand); }
+.text-color-inherit   { color: inherit; }
+
+/* Text weight */
+.text-weight-regular   { font-weight: 400; }
+.text-weight-medium    { font-weight: 500; }
+.text-weight-semibold  { font-weight: 600; }
+.text-weight-bold      { font-weight: 700; }
+
+/* Text style */
+.text-style-italic    { font-style: italic; }
+.text-style-uppercase { text-transform: uppercase; letter-spacing: 0.08em; }
+.text-style-label     { font-size: var(--text-size-small); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+.text-style-link      { text-decoration: underline; cursor: pointer; }
+.text-style-nowrap    { white-space: nowrap; }
+
+/* Rich text styles */
+.text-rich-text h1, .text-rich-text h2, .text-rich-text h3,
+.text-rich-text h4, .text-rich-text h5, .text-rich-text h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+.text-rich-text p, .text-rich-text ul, .text-rich-text ol,
+.text-rich-text blockquote { margin-bottom: 1rem; }
+.text-rich-text ul, .text-rich-text ol { padding-left: 1.5rem; }
+.text-rich-text a { color: var(--color--brand); text-decoration: underline; }
+.text-rich-text blockquote {
+  border-left: 3px solid var(--color--brand);
+  padding-left: 1rem;
+  font-style: italic;
+  color: var(--color--text-secondary);
+}
+
+/* ============================================================
+   BACKGROUND COLOR UTILITY CLASSES
+   ============================================================ */
+.background-color-primary   { background-color: var(--color--bg-primary); }
+.background-color-secondary { background-color: var(--color--bg-secondary); }
+.background-color-dark      { background-color: var(--color--bg-dark); }
+.background-color-brand     { background-color: var(--color--brand); }
+.background-color-brand-light { background-color: var(--color--brand-light); }
+
+/* ============================================================
+   SPACING UTILITY CLASSES
+   Margin + Padding in sizes: xsmall | small | medium | large | xlarge | xxlarge | huge
+   ============================================================ */
+
+/* Margin vertical */
+.margin-vertical-xsmall  { margin-top: var(--spacing--xsmall);  margin-bottom: var(--spacing--xsmall); }
+.margin-vertical-small   { margin-top: var(--spacing--small);   margin-bottom: var(--spacing--small); }
+.margin-vertical-medium  { margin-top: var(--spacing--medium);  margin-bottom: var(--spacing--medium); }
+.margin-vertical-large   { margin-top: var(--spacing--large);   margin-bottom: var(--spacing--large); }
+.margin-vertical-xlarge  { margin-top: var(--spacing--xlarge);  margin-bottom: var(--spacing--xlarge); }
+.margin-vertical-xxlarge { margin-top: var(--spacing--xxlarge); margin-bottom: var(--spacing--xxlarge); }
+
+/* Margin top */
+.margin-top-xsmall  { margin-top: var(--spacing--xsmall); }
+.margin-top-small   { margin-top: var(--spacing--small); }
+.margin-top-medium  { margin-top: var(--spacing--medium); }
+.margin-top-large   { margin-top: var(--spacing--large); }
+.margin-top-xlarge  { margin-top: var(--spacing--xlarge); }
+.margin-top-xxlarge { margin-top: var(--spacing--xxlarge); }
+.margin-top-huge    { margin-top: var(--spacing--huge); }
+
+/* Margin bottom */
+.margin-bottom-xsmall  { margin-bottom: var(--spacing--xsmall); }
+.margin-bottom-small   { margin-bottom: var(--spacing--small); }
+.margin-bottom-medium  { margin-bottom: var(--spacing--medium); }
+.margin-bottom-large   { margin-bottom: var(--spacing--large); }
+.margin-bottom-xlarge  { margin-bottom: var(--spacing--xlarge); }
+.margin-bottom-xxlarge { margin-bottom: var(--spacing--xxlarge); }
+.margin-bottom-huge    { margin-bottom: var(--spacing--huge); }
+
+/* Padding vertical */
+.padding-vertical-xsmall  { padding-top: var(--spacing--xsmall);  padding-bottom: var(--spacing--xsmall); }
+.padding-vertical-small   { padding-top: var(--spacing--small);   padding-bottom: var(--spacing--small); }
+.padding-vertical-medium  { padding-top: var(--spacing--medium);  padding-bottom: var(--spacing--medium); }
+.padding-vertical-large   { padding-top: var(--spacing--large);   padding-bottom: var(--spacing--large); }
+.padding-vertical-xlarge  { padding-top: var(--spacing--xlarge);  padding-bottom: var(--spacing--xlarge); }
+.padding-vertical-xxlarge { padding-top: var(--spacing--xxlarge); padding-bottom: var(--spacing--xxlarge); }
+
+/* Padding top / bottom */
+.padding-top-small   { padding-top: var(--spacing--small); }
+.padding-top-medium  { padding-top: var(--spacing--medium); }
+.padding-top-large   { padding-top: var(--spacing--large); }
+.padding-top-xlarge  { padding-top: var(--spacing--xlarge); }
+.padding-top-xxlarge { padding-top: var(--spacing--xxlarge); }
+.padding-top-huge    { padding-top: var(--spacing--huge); }
+.padding-bottom-small   { padding-bottom: var(--spacing--small); }
+.padding-bottom-medium  { padding-bottom: var(--spacing--medium); }
+.padding-bottom-large   { padding-bottom: var(--spacing--large); }
+.padding-bottom-xlarge  { padding-bottom: var(--spacing--xlarge); }
+.padding-bottom-xxlarge { padding-bottom: var(--spacing--xxlarge); }
+.padding-bottom-huge    { padding-bottom: var(--spacing--huge); }
+
+/* ============================================================
+   HIDE / SHOW UTILITY CLASSES
+   ============================================================ */
+.hide         { display: none !important; }
+.hide-desktop { display: none; }
+.hide-tablet  { display: block; }
+.hide-mobile  { display: block; }
+
+@media (max-width: 991px) {
+  .hide-tablet  { display: none !important; }
+  .hide-desktop { display: block; }
+}
+
+@media (max-width: 767px) {
+  .hide-mobile  { display: none !important; }
+}
+
+/* ============================================================
+   DISPLAY UTILITY CLASSES
+   ============================================================ */
+.display-flex   { display: flex; }
+.display-grid   { display: grid; }
+.display-block  { display: block; }
+.display-none   { display: none; }
+
+/* ============================================================
+   MAX-WIDTH UTILITY CLASSES (for nested elements inside containers)
+   ============================================================ */
+.max-width-small  { max-width: var(--container-small); }
+.max-width-medium { max-width: var(--container-medium); }
+.max-width-large  { max-width: var(--container-large); }
+.max-width-full   { max-width: 100%; }
+
+@media (max-width: 767px) {
+  .max-width-full-mobile-portrait { max-width: none; width: 100%; }
+}
+
+/* ============================================================
+   BUTTON UTILITY CLASSES
+   Usage: class="button-primary" or "button-secondary is-small"
+   ============================================================ */
+[class*="button-"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-medium);
+  font-size: var(--text-size-medium);
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.button-primary {
+  background-color: var(--color--brand);
+  color: var(--color--white);
+  border-color: var(--color--brand);
+}
+.button-primary:hover {
+  background-color: var(--color--brand-dark);
+  border-color: var(--color--brand-dark);
+  color: var(--color--white);
+}
+
+.button-secondary {
+  background-color: transparent;
+  color: var(--color--brand);
+  border-color: var(--color--brand);
+}
+.button-secondary:hover {
+  background-color: var(--color--brand-light);
+}
+
+.button-neutral {
+  background-color: var(--color--neutral-100);
+  color: var(--color--text-primary);
+  border-color: var(--color--border);
+}
+.button-neutral:hover {
+  background-color: var(--color--neutral-200);
+}
+
+.button-dark {
+  background-color: var(--color--neutral-950);
+  color: var(--color--white);
+  border-color: var(--color--neutral-950);
+}
+.button-dark:hover { background-color: var(--color--neutral-800); }
+
+/* Button size combo classes */
+.is-small  { padding: 0.5rem 1rem;    font-size: var(--text-size-small); }
+.is-large  { padding: 1rem 2rem;      font-size: var(--text-size-large); }
+.is-xlarge { padding: 1.125rem 2.5rem; font-size: var(--text-size-xlarge); }
+.is-icon-left  { flex-direction: row; }
+.is-icon-right { flex-direction: row-reverse; }
+.is-full-width { width: 100%; }
+
+/* ============================================================
+   ICON UTILITY CLASSES
+   ============================================================ */
+.icon-small  { width: 1rem;    height: 1rem; }
+.icon-medium { width: 1.25rem; height: 1.25rem; }
+.icon-large  { width: 1.5rem;  height: 1.5rem; }
+.icon-xlarge { width: 2rem;    height: 2rem; }
+.icon-1x1    { width: 1.5rem;  height: 1.5rem; }
+
+/* ============================================================
+   FORM UTILITY CLASSES
+   ============================================================ */
+.form_field-wrapper { display: flex; flex-direction: column; gap: 0.375rem; }
+.form_label { font-size: var(--text-size-small); font-weight: 500; color: var(--color--text-primary); }
+.form_input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1.5px solid var(--color--border);
+  border-radius: var(--radius-medium);
+  font-size: var(--text-size-medium);
+  font-family: var(--font-body);
+  color: var(--color--text-primary);
+  background-color: var(--color--bg-primary);
+  transition: border-color var(--transition-fast);
+  outline: none;
+}
+.form_input:focus {
+  border-color: var(--color--brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color--brand) 15%, transparent);
+}
+
+/* ============================================================
+   GLOBAL BASE STYLES
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-family: var(--font-body);
+  font-size: var(--text-size-medium);
+  color: var(--color--text-primary);
+  background-color: var(--color--bg-primary);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+body { min-height: 100dvh; }
+
+img, video, svg { display: block; max-width: 100%; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+  color: var(--color--text-primary);
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, var(--text-size-6xlarge)); font-weight: 800; line-height: 1.1; }
+h2 { font-size: clamp(2rem, 4vw, var(--text-size-5xlarge)); line-height: 1.15; }
+h3 { font-size: clamp(1.5rem, 3vw, var(--text-size-4xlarge)); }
+h4 { font-size: var(--text-size-3xlarge); }
+h5 { font-size: var(--text-size-2xlarge); font-weight: 600; }
+h6 { font-size: var(--text-size-xlarge); font-weight: 600; }
+
+p { text-wrap: pretty; }
+
+a {
+  color: var(--color--brand);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover { color: var(--color--brand-dark); }
+
+::selection { background-color: var(--color--brand); color: white; }

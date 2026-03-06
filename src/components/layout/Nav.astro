@@ -1,0 +1,103 @@
+---
+const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "Styleguide", href: "/styleguide" },
+    { label: "Sandbox", href: "/sandbox" },
+];
+---
+
+<nav class="nav_component">
+    <div class="padding-global">
+        <div class="nav_container container-large">
+            <!-- Logo -->
+            <a href="/" class="nav_logo-wrapper">
+                <span class="nav_logo-text">Brand</span>
+            </a>
+
+            <!-- Nav links -->
+            <div class="nav_menu-wrapper">
+                {
+                    navLinks.map((link) => (
+                        <a href={link.href} class="nav_link">
+                            {link.label}
+                        </a>
+                    ))
+                }
+            </div>
+
+            <!-- CTA -->
+            <div class="nav_button-wrapper">
+                <a href="#" class="button-primary is-small">Get Started</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .nav_component {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: var(--color--bg-primary);
+        border-bottom: 1px solid var(--color--border);
+        backdrop-filter: blur(12px);
+        background-color: color-mix(
+            in srgb,
+            var(--color--bg-primary) 90%,
+            transparent
+        );
+    }
+
+    .nav_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing--large);
+        padding-top: var(--spacing--small);
+        padding-bottom: var(--spacing--small);
+    }
+
+    .nav_logo-wrapper {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .nav_logo-text {
+        font-size: var(--text-size-xlarge);
+        font-weight: 800;
+        font-family: var(--font-heading);
+        color: var(--color--text-primary);
+        letter-spacing: -0.02em;
+    }
+
+    .nav_menu-wrapper {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing--large);
+    }
+
+    .nav_link {
+        font-size: var(--text-size-medium);
+        font-weight: 500;
+        color: var(--color--text-secondary);
+        text-decoration: none;
+        transition: color var(--transition-fast);
+    }
+
+    .nav_link:hover {
+        color: var(--color--text-primary);
+    }
+
+    .nav_button-wrapper {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing--small);
+    }
+
+    @media (max-width: 767px) {
+        .nav_menu-wrapper {
+            display: none;
+        }
+    }
+</style>

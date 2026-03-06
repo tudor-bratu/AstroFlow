@@ -1,0 +1,733 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Client-First Styleguide" noindex={true}>
+
+  <!-- Styleguide Hero -->
+  <section class="section_styleguide-hero section-style-dark section-spacing-medium">
+    <div class="padding-global">
+      <div class="container-large">
+        <p class="text-style-label text-color-brand margin-bottom-small">Client-First v2</p>
+        <h1 class="heading-style-h2 text-color-inverted margin-bottom-medium">Styleguide</h1>
+        <p class="text-color-muted text-size-large max-width-medium">
+          Complete reference for all utility classes, components, and naming conventions in this project.
+          Bookmark this page — use it when building new sections.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <div class="sg_toc-wrapper section-style-subtle">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="sg_toc-inner">
+          <span class="text-style-label text-color-secondary">Jump to:</span>
+          <nav class="sg_toc-nav">
+            <a href="#colors" class="sg_toc-link">Colors</a>
+            <a href="#typography" class="sg_toc-link">Typography</a>
+            <a href="#spacing" class="sg_toc-link">Spacing</a>
+            <a href="#buttons" class="sg_toc-link">Buttons</a>
+            <a href="#layout" class="sg_toc-link">Layout</a>
+            <a href="#sections" class="sg_toc-link">Sections</a>
+            <a href="#naming" class="sg_toc-link">Naming Rules</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ COLORS ═══════════════════════ -->
+  <section class="section_sg-colors section-style-light section-spacing-medium" id="colors">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="sg_section-header">
+          <h2 class="heading-style-h3">Colors</h2>
+          <p class="text-color-secondary">Edit <code>--color--brand</code> in <code>client-first.css</code> to update the entire site.</p>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Brand Colors</h3>
+          <div class="sg_color-grid">
+            <div class="sg_color-swatch">
+              <div class="sg_color-preview background-color-brand"></div>
+              <p class="sg_color-name"><code>--color--brand</code></p>
+              <p class="sg_color-class text-color-muted text-size-small">background-color-brand</p>
+            </div>
+            <div class="sg_color-swatch">
+              <div class="sg_color-preview" style="background: var(--color--brand-dark)"></div>
+              <p class="sg_color-name"><code>--color--brand-dark</code></p>
+            </div>
+            <div class="sg_color-swatch">
+              <div class="sg_color-preview background-color-brand-light"></div>
+              <p class="sg_color-name"><code>--color--brand-light</code></p>
+              <p class="sg_color-class text-color-muted text-size-small">background-color-brand-light</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Neutral Scale</h3>
+          <div class="sg_color-grid sg_color-grid-wide">
+            {[950, 900, 800, 700, 600, 500, 400, 300, 200, 100, 50].map(n => (
+              <div class="sg_color-swatch">
+                <div class="sg_color-preview" style={`background: var(--color--neutral-${n}); border: 1px solid var(--color--border)`}></div>
+                <p class="sg_color-name text-size-xsmall">{n}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Semantic Text Colors — Utility Classes</h3>
+          <div class="sg_row">
+            <p class="text-color-primary">text-color-primary</p>
+            <p class="text-color-secondary">text-color-secondary</p>
+            <p class="text-color-muted">text-color-muted</p>
+            <p class="text-color-brand">text-color-brand</p>
+          </div>
+          <div class="sg_row sg_row-dark">
+            <p class="text-color-inverted">text-color-inverted</p>
+          </div>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Background Colors — Utility Classes</h3>
+          <div class="sg_bg-row">
+            <div class="sg_bg-swatch background-color-primary"><span>background-color-primary</span></div>
+            <div class="sg_bg-swatch background-color-secondary"><span>background-color-secondary</span></div>
+            <div class="sg_bg-swatch background-color-dark text-color-inverted"><span>background-color-dark</span></div>
+            <div class="sg_bg-swatch background-color-brand text-color-inverted"><span>background-color-brand</span></div>
+            <div class="sg_bg-swatch background-color-brand-light"><span>background-color-brand-light</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ TYPOGRAPHY ═══════════════════════ -->
+  <section class="section_sg-typography section-style-subtle section-spacing-medium" id="typography">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="sg_section-header">
+          <h2 class="heading-style-h3">Typography</h2>
+          <p class="text-color-secondary">Default heading styles come from HTML tags. Use <code>heading-style-h*</code> to decouple visual from semantic.</p>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Default Heading Tags</h3>
+          <div class="sg_type-stack">
+            <div class="sg_type-row">
+              <code class="sg_type-label">h1</code>
+              <h1>The quick brown fox</h1>
+            </div>
+            <div class="sg_type-row">
+              <code class="sg_type-label">h2</code>
+              <h2>The quick brown fox</h2>
+            </div>
+            <div class="sg_type-row">
+              <code class="sg_type-label">h3</code>
+              <h3>The quick brown fox</h3>
+            </div>
+            <div class="sg_type-row">
+              <code class="sg_type-label">h4</code>
+              <h4>The quick brown fox</h4>
+            </div>
+            <div class="sg_type-row">
+              <code class="sg_type-label">h5</code>
+              <h5>The quick brown fox</h5>
+            </div>
+            <div class="sg_type-row">
+              <code class="sg_type-label">h6</code>
+              <h6>The quick brown fox</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">heading-style-h# Utility Classes</h3>
+          <p class="text-color-secondary text-size-small margin-bottom-medium">Use these to apply heading visual styles to any element (e.g. <code>&lt;p class="heading-style-h2"&gt;</code>)</p>
+          {['h1','h2','h3','h4','h5','h6'].map(h => (
+            <div class="sg_type-row">
+              <code class="sg_type-label">heading-style-{h}</code>
+              <p class={`heading-style-${h}`}>The quick brown fox</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">text-size-* Utility Classes</h3>
+          <div class="sg_type-stack">
+            {['xsmall','small','medium','large','xlarge','2xlarge'].map(s => (
+              <div class="sg_type-row">
+                <code class="sg_type-label">text-size-{s}</code>
+                <p class={`text-size-${s}`}>The quick brown fox jumps over the lazy dog</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">text-weight-* & text-style-*</h3>
+          <div class="sg_type-stack">
+            <div class="sg_type-row"><code class="sg_type-label">text-weight-regular</code>   <p class="text-weight-regular">Regular 400</p></div>
+            <div class="sg_type-row"><code class="sg_type-label">text-weight-medium</code>    <p class="text-weight-medium">Medium 500</p></div>
+            <div class="sg_type-row"><code class="sg_type-label">text-weight-semibold</code>  <p class="text-weight-semibold">Semibold 600</p></div>
+            <div class="sg_type-row"><code class="sg_type-label">text-weight-bold</code>      <p class="text-weight-bold">Bold 700</p></div>
+            <div class="sg_type-row"><code class="sg_type-label">text-style-italic</code>     <p class="text-style-italic">Italic text style</p></div>
+            <div class="sg_type-row"><code class="sg_type-label">text-style-uppercase</code>  <p class="text-style-uppercase">Uppercase label</p></div>
+            <div class="sg_type-row"><code class="sg_type-label">text-style-label</code>      <p class="text-style-label">Label style text</p></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ BUTTONS ═══════════════════════ -->
+  <section class="section_sg-buttons section-style-light section-spacing-medium" id="buttons">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="sg_section-header">
+          <h2 class="heading-style-h3">Buttons</h2>
+          <p class="text-color-secondary">Base classes: <code>button-primary</code>, <code>button-secondary</code>, <code>button-neutral</code>, <code>button-dark</code>. Size combo classes: <code>is-small</code>, <code>is-large</code>, <code>is-xlarge</code>.</p>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Button Variants</h3>
+          <div class="sg_button-row">
+            <a href="#" class="button-primary">button-primary</a>
+            <a href="#" class="button-secondary">button-secondary</a>
+            <a href="#" class="button-neutral">button-neutral</a>
+            <a href="#" class="button-dark">button-dark</a>
+          </div>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Sizes — Combo Classes</h3>
+          <div class="sg_button-row sg_button-row-align">
+            <a href="#" class="button-primary is-small">is-small</a>
+            <a href="#" class="button-primary">default</a>
+            <a href="#" class="button-primary is-large">is-large</a>
+            <a href="#" class="button-primary is-xlarge">is-xlarge</a>
+          </div>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Full Width</h3>
+          <a href="#" class="button-primary is-full-width">button-primary is-full-width</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ SPACING ═══════════════════════ -->
+  <section class="section_sg-spacing section-style-subtle section-spacing-medium" id="spacing">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="sg_section-header">
+          <h2 class="heading-style-h3">Spacing System</h2>
+          <p class="text-color-secondary">All spacing tokens are in CSS variables. Use utility classes for common patterns.</p>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Spacing Variables</h3>
+          <div class="sg_spacing-grid">
+            {[
+              ['--spacing--xsmall', '0.5rem / 8px'],
+              ['--spacing--small',  '1rem / 16px'],
+              ['--spacing--medium', '1.5rem / 24px'],
+              ['--spacing--large',  '2rem / 32px'],
+              ['--spacing--xlarge', '3rem / 48px'],
+              ['--spacing--xxlarge','4rem / 64px'],
+              ['--spacing--huge',   '6rem / 96px'],
+              ['--spacing--massive','8rem / 128px'],
+            ].map(([token, val]) => (
+              <div class="sg_spacing-row">
+                <div class="sg_spacing-block" style={`width: var(${token}); background: var(--color--brand-light); border: 1px solid var(--color--brand)`}></div>
+                <div>
+                  <code class="text-color-brand text-size-small">{token}</code>
+                  <p class="text-color-muted text-size-small">{val}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">margin-bottom-* Utility Classes</h3>
+          <p class="text-color-secondary text-size-small">Also available: <code>margin-top-*</code>, <code>margin-vertical-*</code>, <code>padding-top-*</code>, <code>padding-bottom-*</code>, <code>padding-vertical-*</code></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ LAYOUT ═══════════════════════ -->
+  <section class="section_sg-layout section-style-light section-spacing-medium" id="layout">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="sg_section-header">
+          <h2 class="heading-style-h3">Layout &amp; Core Structure</h2>
+          <p class="text-color-secondary">The Client-First page structure, outer to inner.</p>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Core HTML Structure</h3>
+          <div class="sg_code-block">
+            <pre><code>{`<!-- CORE STRUCTURE (outer → inner) -->
+<div class="page-wrapper">
+  <nav>Nav</nav>
+  <main class="main-wrapper">
+
+    <section class="section_[name] section-style-light section-spacing-large">
+      <div class="padding-global">
+        <div class="container-large">
+
+          <!-- Your content here -->
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer>Footer</footer>
+</div>`}</code></pre>
+          </div>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">Container Classes</h3>
+          <div class="sg_layout-demo">
+            <div class="sg_layout-outer">
+              <div class="sg_layout-inner" style="max-width: var(--container-small)">
+                <code>container-small (768px)</code>
+              </div>
+            </div>
+            <div class="sg_layout-outer">
+              <div class="sg_layout-inner" style="max-width: var(--container-medium)">
+                <code>container-medium (1024px)</code>
+              </div>
+            </div>
+            <div class="sg_layout-outer">
+              <div class="sg_layout-inner">
+                <code>container-large (1280px)</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ SECTIONS ═══════════════════════ -->
+  <section class="section_sg-sections section-style-subtle section-spacing-medium" id="sections">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="sg_section-header">
+          <h2 class="heading-style-h3">Section Styles &amp; Spacing</h2>
+          <p class="text-color-secondary">Combo classes added to <code>section_[name]</code></p>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">section-style-* Variants</h3>
+          <div class="sg_section-demos">
+            <div class="sg_section-demo section-style-light">
+              <code>section-style-light</code>
+            </div>
+            <div class="sg_section-demo section-style-subtle">
+              <code>section-style-subtle</code>
+            </div>
+            <div class="sg_section-demo section-style-dark text-color-inverted">
+              <code>section-style-dark</code>
+            </div>
+            <div class="sg_section-demo section-style-brand text-color-inverted">
+              <code>section-style-brand</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg_subsection">
+          <h3 class="sg_subsection-label text-style-label text-color-secondary">section-spacing-* Variants</h3>
+          <div class="sg_code-block">
+            <pre><code>{`section-spacing-small   /* py: 48px */
+section-spacing-medium  /* py: 64px */
+section-spacing-large   /* py: 96px */
+section-spacing-huge    /* py: 128px */`}</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ NAMING RULES ═══════════════════════ -->
+  <section class="section_sg-naming section-style-dark section-spacing-medium" id="naming">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="sg_section-header">
+          <h2 class="heading-style-h3 text-color-inverted">Client-First Naming Rules</h2>
+          <p class="text-color-muted">The complete quick reference for naming classes in this project.</p>
+        </div>
+
+        <div class="sg_rules-grid">
+
+          <div class="sg_rule-card">
+            <div class="sg_rule-tag sg_rule-tag-utility">Utility</div>
+            <h3 class="sg_rule-title">Dashes only</h3>
+            <p class="sg_rule-desc">For globally reusable CSS property classes. No underscore.</p>
+            <div class="sg_rule-examples">
+              <code>text-color-brand</code>
+              <code>margin-bottom-large</code>
+              <code>button-primary</code>
+              <code>heading-style-h2</code>
+            </div>
+          </div>
+
+          <div class="sg_rule-card">
+            <div class="sg_rule-tag sg_rule-tag-custom">Custom</div>
+            <h3 class="sg_rule-title">Underscore = folder</h3>
+            <p class="sg_rule-desc">For component or section-specific elements. The part before <code>_</code> is the folder.</p>
+            <div class="sg_rule-examples">
+              <code>hero_heading</code>
+              <code>nav_logo-wrapper</code>
+              <code>team-list_headshot</code>
+              <code>faq_item</code>
+            </div>
+          </div>
+
+          <div class="sg_rule-card">
+            <div class="sg_rule-tag sg_rule-tag-combo">Combo</div>
+            <h3 class="sg_rule-title">is- prefix</h3>
+            <p class="sg_rule-desc">Variants on top of a base class. Inherits base styles, adds its own.</p>
+            <div class="sg_rule-examples">
+              <code>button-primary is-large</code>
+              <code>button-primary is-full-width</code>
+              <code>modal_component is-visible</code>
+            </div>
+          </div>
+
+          <div class="sg_rule-card">
+            <div class="sg_rule-tag sg_rule-tag-section">Section</div>
+            <h3 class="sg_rule-title">section_[name]</h3>
+            <p class="sg_rule-desc">Sections are custom classes. Use combo classes for style/spacing.</p>
+            <div class="sg_rule-examples">
+              <code>section_hero</code>
+              <code>section_features</code>
+              <code>section_hero section-style-dark</code>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sg_rule-summary">
+          <p class="text-color-muted text-size-small">
+            <strong class="text-color-inverted">Golden rule:</strong>
+            Read the class name and know its purpose — no abbreviations, no confusion. Give context.
+            <code>pricing_background-texture</code> not <code>pricing-bg-tx</code>.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  /* ===== Styleguide shell ===== */
+  .sg_toc-wrapper {
+    position: sticky;
+    top: 57px; /* nav height */
+    z-index: 50;
+    border-bottom: 1px solid var(--color--border);
+  }
+
+  .sg_toc-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing--medium);
+    padding-top: var(--spacing--small);
+    padding-bottom: var(--spacing--small);
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .sg_toc-nav {
+    display: flex;
+    gap: var(--spacing--medium);
+  }
+
+  .sg_toc-link {
+    font-size: var(--text-size-small);
+    font-weight: 500;
+    color: var(--color--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .sg_toc-link:hover { color: var(--color--brand); }
+
+  /* ===== Section headers ===== */
+  .sg_section-header {
+    margin-bottom: var(--spacing--xlarge);
+    padding-bottom: var(--spacing--medium);
+    border-bottom: 1px solid var(--color--border);
+  }
+
+  .sg_section-header h2 { margin-bottom: var(--spacing--small); }
+
+  .sg_subsection {
+    margin-bottom: var(--spacing--xlarge);
+  }
+
+  .sg_subsection-label {
+    display: block;
+    margin-bottom: var(--spacing--medium);
+    color: var(--color--text-secondary);
+  }
+
+  /* ===== Color swatches ===== */
+  .sg_color-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing--medium);
+  }
+
+  .sg_color-swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .sg_color-preview {
+    width: 8rem;
+    height: 5rem;
+    border-radius: var(--radius-medium);
+  }
+
+  .sg_color-name { font-size: var(--text-size-small); font-weight: 500; }
+  .sg_color-class { color: var(--color--text-muted); }
+
+  .sg_color-grid-wide .sg_color-preview { width: 4.5rem; height: 3rem; }
+
+  /* ===== Text row ===== */
+  .sg_row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing--large);
+    margin-bottom: var(--spacing--small);
+  }
+
+  .sg_row-dark {
+    background: var(--color--bg-dark);
+    padding: var(--spacing--medium);
+    border-radius: var(--radius-medium);
+  }
+
+  .sg_bg-row { display: flex; flex-wrap: wrap; gap: var(--spacing--small); }
+
+  .sg_bg-swatch {
+    flex: 1;
+    min-width: 10rem;
+    padding: var(--spacing--medium);
+    border-radius: var(--radius-medium);
+    border: 1px solid var(--color--border);
+    font-size: var(--text-size-small);
+    font-family: var(--font-mono);
+  }
+
+  /* ===== Typography ===== */
+  .sg_type-stack { display: flex; flex-direction: column; gap: var(--spacing--small); }
+
+  .sg_type-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing--large);
+    padding: var(--spacing--small) 0;
+    border-bottom: 1px solid var(--color--border);
+  }
+
+  .sg_type-label {
+    flex-shrink: 0;
+    width: 12rem;
+    font-size: var(--text-size-xsmall);
+    color: var(--color--brand);
+    font-family: var(--font-mono);
+  }
+
+  /* ===== Buttons ===== */
+  .sg_button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing--medium);
+    margin-bottom: var(--spacing--medium);
+  }
+
+  .sg_button-row-align { align-items: center; }
+
+  /* ===== Spacing ===== */
+  .sg_spacing-grid { display: flex; flex-direction: column; gap: var(--spacing--medium); }
+
+  .sg_spacing-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing--medium);
+  }
+
+  .sg_spacing-block {
+    height: 1.5rem;
+    min-width: 0.5rem;
+    border-radius: var(--radius-small);
+    flex-shrink: 0;
+  }
+
+  /* ===== Layout ===== */
+  .sg_layout-demo { display: flex; flex-direction: column; gap: var(--spacing--small); }
+
+  .sg_layout-outer {
+    background: var(--color--neutral-100);
+    border-radius: var(--radius-medium);
+    padding: var(--spacing--small);
+  }
+
+  .sg_layout-inner {
+    width: 100%;
+    max-width: var(--container-large);
+    margin: 0 auto;
+    background: var(--color--brand-light);
+    border: 1px solid var(--color--brand);
+    border-radius: var(--radius-small);
+    padding: var(--spacing--small) var(--spacing--medium);
+    font-family: var(--font-mono);
+    font-size: var(--text-size-small);
+    color: var(--color--brand);
+  }
+
+  /* ===== Section demos ===== */
+  .sg_section-demos { display: flex; flex-direction: column; gap: var(--spacing--small); }
+
+  .sg_section-demo {
+    padding: var(--spacing--large);
+    border-radius: var(--radius-medium);
+    border: 1px solid var(--color--border);
+    font-family: var(--font-mono);
+    font-size: var(--text-size-small);
+  }
+
+  /* ===== Code block ===== */
+  .sg_code-block {
+    background: var(--color--neutral-950);
+    border-radius: var(--radius-large);
+    padding: var(--spacing--large);
+    overflow-x: auto;
+  }
+
+  .sg_code-block pre { margin: 0; }
+
+  .sg_code-block code {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-small);
+    color: var(--color--neutral-300);
+    background: none;
+    padding: 0;
+  }
+
+  /* ===== Naming rules ===== */
+  .sg_rules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing--medium);
+    margin-bottom: var(--spacing--large);
+  }
+
+  @media (max-width: 767px) {
+    .sg_rules-grid { grid-template-columns: 1fr; }
+  }
+
+  .sg_rule-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-large);
+    padding: var(--spacing--large);
+  }
+
+  .sg_rule-tag {
+    display: inline-block;
+    font-size: var(--text-size-xsmall);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    margin-bottom: var(--spacing--small);
+  }
+
+  .sg_rule-tag-utility { background: var(--color--brand-light); color: var(--color--brand); }
+  .sg_rule-tag-custom  { background: rgba(16,185,129,0.15); color: #10b981; }
+  .sg_rule-tag-combo   { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .sg_rule-tag-section { background: rgba(168,85,247,0.15); color: #a855f7; }
+
+  .sg_rule-title {
+    font-size: var(--text-size-large);
+    font-weight: 700;
+    color: var(--color--white);
+    margin-bottom: var(--spacing--xsmall);
+    font-family: var(--font-heading);
+  }
+
+  .sg_rule-desc {
+    font-size: var(--text-size-small);
+    color: var(--color--neutral-400);
+    margin-bottom: var(--spacing--medium);
+    line-height: 1.5;
+  }
+
+  .sg_rule-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .sg_rule-examples code {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xsmall);
+    color: var(--color--neutral-300);
+    background: rgba(255,255,255,0.05);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-small);
+    display: block;
+  }
+
+  .sg_rule-summary {
+    padding: var(--spacing--medium);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-medium);
+  }
+
+  /* General code styling */
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background-color: var(--color--neutral-100);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-small);
+    color: var(--color--brand);
+  }
+
+  .section-style-dark code {
+    background: rgba(255,255,255,0.08);
+    color: var(--color--neutral-200);
+  }
+</style>
