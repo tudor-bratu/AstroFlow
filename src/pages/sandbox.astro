@@ -1,227 +1,1236 @@
 ---
-import Base from '../layouts/Base.astro';
+import "../styles/client-first.css";
 ---
 
-<Base title="Sandbox — Client-First Astro">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sandbox — Client-First Astro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
 
-  <!-- ============================================================
-    HOW TO USE THIS SANDBOX:
-    1. Each section below is a self-contained component
-    2. Name sections: section_[identifier]
-    3. Add section-style-* combo class for backgrounds
-    4. Add section-spacing-* combo class for vertical spacing
-    5. Always wrap content in: padding-global > container-[size]
-    6. Use utility classes for typography and spacing
-    7. Use custom classes (with _) for component-specific styles
-    ============================================================ -->
+      .sandbox-app {
+        --sb-bg: #0f0f10;
+        --sb-surface: #1a1a1d;
+        --sb-surface2: #242428;
+        --sb-border: #2e2e35;
+        --sb-accent: #5b6dff;
+        --sb-accent-dim: rgba(91, 109, 255, 0.15);
+        --sb-text: #e8e8f0;
+        --sb-text-dim: #7b7b90;
+        --sb-text-muted: #4a4a5a;
+        --sb-success: #3ecf8e;
+        --sb-font-mono: "JetBrains Mono", "Fira Code", monospace;
+        --sb-panel-w: 340px;
+        --sb-toolbar-h: 48px;
+        --sb-radius: 8px;
+        --sb-radius-sm: 4px;
 
+        display: grid;
+        grid-template-rows: var(--sb-toolbar-h) 1fr;
+        height: 100vh;
+        background: var(--sb-bg);
+        color: var(--sb-text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 13px;
+        overflow: hidden;
+      }
 
-  <!-- ═══════════════════════════════════════════════
-    SECTION: HERO
-    Custom class: section_hero
-    Combo classes: section-style-light section-spacing-huge
-  ═══════════════════════════════════════════════ -->
-  <section class="section_hero section-style-light section-spacing-huge">
-    <div class="padding-global">
-      <div class="container-large">
-        <div class="hero_content-wrapper">
-          <!-- Label -->
-          <p class="hero_label text-style-label text-color-brand margin-bottom-small">
-            Your tagline goes here
-          </p>
+      .sandbox-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px;
+        background: var(--sb-surface);
+        border-bottom: 1px solid var(--sb-border);
+        z-index: 10;
+      }
+      .toolbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: var(--sb-text);
+        margin-right: 8px;
+        white-space: nowrap;
+      }
+      .toolbar-brand svg {
+        color: var(--sb-accent);
+        flex-shrink: 0;
+      }
+      .toolbar-brand span {
+        color: var(--sb-text-dim);
+        font-weight: 400;
+      }
+      .toolbar-sep {
+        width: 1px;
+        height: 20px;
+        background: var(--sb-border);
+        flex-shrink: 0;
+      }
+      .bp-group {
+        display: flex;
+        gap: 4px;
+      }
+      .bp-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: var(--sb-radius-sm);
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--sb-text-dim);
+        cursor: pointer;
+        font-size: 12px;
+        font-family: inherit;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+      }
+      .bp-btn:hover {
+        color: var(--sb-text);
+        background: var(--sb-surface2);
+      }
+      .bp-btn.active {
+        color: var(--sb-accent);
+        background: var(--sb-accent-dim);
+        border-color: var(--sb-accent);
+      }
+      .toolbar-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .live-label {
+        color: var(--sb-text-dim);
+        font-size: 11px;
+      }
+      .toggle-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: var(--sb-radius-sm);
+        background: var(--sb-surface2);
+        border: 1px solid var(--sb-border);
+        color: var(--sb-text-dim);
+        cursor: pointer;
+        font-size: 12px;
+        font-family: inherit;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+      }
+      .toggle-btn:hover {
+        color: var(--sb-text);
+        border-color: var(--sb-accent);
+      }
+      .toggle-btn.active {
+        color: var(--sb-accent);
+        border-color: var(--sb-accent);
+        background: var(--sb-accent-dim);
+      }
+      .live-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--sb-success);
+        box-shadow: 0 0 6px var(--sb-success);
+        animation: sb-pulse 2s ease infinite;
+        flex-shrink: 0;
+      }
+      @keyframes sb-pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
 
-          <!-- Heading — no class needed if you want default h1 styles -->
-          <h1 class="hero_heading margin-bottom-medium">
-            Build faster with<br />
-            <span class="hero_heading-accent">Client-First</span>
-          </h1>
+      .sandbox-main {
+        display: flex;
+        overflow: hidden;
+        height: 100%;
+      }
 
-          <!-- Subtext -->
-          <p class="hero_subtext text-size-xlarge text-color-secondary max-width-medium margin-bottom-large">
-            A production-ready Astro starter with Finsweet's Client-First v2 CSS system.
-            Every section is isolated, namespaced, and respects the brand.
-          </p>
+      .editor-panel {
+        width: var(--sb-panel-w);
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        background: var(--sb-surface);
+        border-right: 1px solid var(--sb-border);
+        transition: width 0.25s ease, opacity 0.25s ease;
+        overflow: hidden;
+      }
+      .editor-panel.collapsed {
+        width: 0;
+        opacity: 0;
+      }
 
-          <!-- CTA buttons -->
-          <div class="hero_button-group">
-            <a href="/styleguide" class="button-primary is-large">View Styleguide</a>
-            <a href="#sandbox-section" class="button-secondary is-large">Explore →</a>
+      .panel-tabs {
+        display: flex;
+        border-bottom: 1px solid var(--sb-border);
+        flex-shrink: 0;
+      }
+      .panel-tab {
+        flex: 1;
+        padding: 10px 0;
+        text-align: center;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: var(--sb-text-dim);
+        cursor: pointer;
+        font-size: 12px;
+        font-family: inherit;
+        transition: all 0.15s;
+      }
+      .panel-tab:hover {
+        color: var(--sb-text);
+      }
+      .panel-tab.active {
+        color: var(--sb-accent);
+        border-bottom-color: var(--sb-accent);
+      }
+
+      .panel-body {
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .tab-pane {
+        display: none;
+        flex: 1;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .tab-pane.active {
+        display: flex;
+      }
+
+      .code-area {
+        flex: 1;
+        overflow: hidden;
+      }
+      textarea.code-input {
+        width: 100%;
+        height: 100%;
+        background: var(--sb-bg);
+        color: #a9b1d6;
+        border: none;
+        outline: none;
+        resize: none;
+        font-family: var(--sb-font-mono);
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 16px;
+        tab-size: 2;
+        caret-color: var(--sb-accent);
+      }
+
+      .apply-btn {
+        flex-shrink: 0;
+        margin: 12px;
+        padding: 10px 0;
+        border-radius: var(--sb-radius-sm);
+        background: var(--sb-accent);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: inherit;
+        transition: all 0.15s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .apply-btn:hover {
+        background: #4a5de8;
+        transform: translateY(-1px);
+      }
+      .apply-btn:active {
+        transform: translateY(0);
+      }
+
+      .props-list {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow-y: auto;
+        flex: 1;
+      }
+      .props-empty-msg {
+        color: var(--sb-text-muted);
+        font-size: 12px;
+        padding: 8px 0;
+        line-height: 1.6;
+      }
+      .props-empty-msg code {
+        color: var(--sb-accent);
+        font-family: var(--sb-font-mono);
+      }
+      .prop-row {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .prop-label {
+        font-size: 11px;
+        color: var(--sb-text-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .prop-input {
+        width: 100%;
+        padding: 7px 10px;
+        background: var(--sb-surface2);
+        border: 1px solid var(--sb-border);
+        border-radius: var(--sb-radius-sm);
+        color: var(--sb-text);
+        font-family: var(--sb-font-mono);
+        font-size: 12px;
+        outline: none;
+        transition: border-color 0.15s;
+      }
+      .prop-input:focus {
+        border-color: var(--sb-accent);
+      }
+      textarea.prop-input {
+        resize: vertical;
+        min-height: 70px;
+        line-height: 1.5;
+      }
+
+      .preview-area {
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background: var(--sb-bg);
+      }
+      .single-view {
+        flex: 1;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 24px;
+      }
+      .frame-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+      .frame-label-text {
+        font-size: 11px;
+        color: var(--sb-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .frame-size-badge {
+        font-size: 11px;
+        color: var(--sb-text-muted);
+        font-family: var(--sb-font-mono);
+      }
+      .frame-wrapper {
+        background: white;
+        border-radius: var(--sb-radius);
+        box-shadow: 0 0 0 1px var(--sb-border), 0 20px 60px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+        width: 100%;
+        transition: width 0.3s ease;
+      }
+      .frame-wrapper iframe {
+        display: block;
+        width: 100%;
+        border: none;
+        min-height: 200px;
+      }
+
+      .responsive-view {
+        flex: 1;
+        overflow: auto;
+        display: flex;
+        gap: 20px;
+        padding: 24px;
+        align-items: flex-start;
+      }
+      .resp-col {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .resize-handle {
+        width: 4px;
+        flex-shrink: 0;
+        cursor: col-resize;
+        background: transparent;
+        transition: background 0.15s;
+      }
+      .resize-handle:hover,
+      .resize-handle.dragging {
+        background: var(--sb-accent);
+      }
+
+      .sandbox-toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--sb-surface2);
+        border: 1px solid var(--sb-border);
+        padding: 10px 18px;
+        border-radius: 99px;
+        font-size: 13px;
+        color: var(--sb-text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        pointer-events: none;
+        z-index: 1000;
+      }
+      .sandbox-toast.show {
+        transform: translateX(-50%) translateY(0);
+      }
+      .toast-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--sb-success);
+        flex-shrink: 0;
+      }
+
+      kbd {
+        display: inline-flex;
+        align-items: center;
+        padding: 1px 5px;
+        border-radius: 3px;
+        background: var(--sb-surface2);
+        border: 1px solid var(--sb-border);
+        font-size: 10px;
+        font-family: var(--sb-font-mono);
+        color: var(--sb-text-dim);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sandbox-app">
+      <!-- Toolbar -->
+      <div class="sandbox-toolbar">
+        <div class="toolbar-brand">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polygon points="12 2 22 20 2 20"></polygon>
+          </svg>
+          Astro <span>/ sandbox</span>
+        </div>
+        <div class="toolbar-sep"></div>
+        <div class="bp-group">
+          <button class="bp-btn active" data-bp="full">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><rect x="2" y="3" width="20" height="14" rx="2"></rect><path
+                d="M8 21h8M12 17v4"></path>
+            </svg>
+            Full
+          </button>
+          <button class="bp-btn" data-bp="1280">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><rect x="2" y="3" width="20" height="14" rx="2"></rect><path
+                d="M8 21h8M12 17v4"></path>
+            </svg>
+            1280
+          </button>
+          <button class="bp-btn" data-bp="1024">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><rect x="1" y="4" width="22" height="14" rx="2"></rect><path
+                d="M8 20h8"></path>
+            </svg>
+            1024
+          </button>
+          <button class="bp-btn" data-bp="768">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><rect x="5" y="2" width="14" height="20" rx="2"></rect><path
+                d="M12 18h.01"></path>
+            </svg>
+            768
+          </button>
+          <button class="bp-btn" data-bp="390">
+            <svg
+              width="11"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><rect x="7" y="2" width="10" height="20" rx="2"></rect><path
+                d="M12 18h.01"></path>
+            </svg>
+            390
+          </button>
+          <button class="bp-btn" data-bp="responsive">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><rect x="2" y="3" width="14" height="10" rx="1"></rect><rect
+                x="14"
+                y="8"
+                width="8"
+                height="13"
+                rx="1"></rect>
+            </svg>
+            All
+          </button>
+        </div>
+        <div class="toolbar-right">
+          <button class="toggle-btn" id="exportAstroBtn" style="color:var(--sb-accent); border-color:var(--sb-accent);">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Export .astro
+          </button>
+          <div class="toolbar-sep"></div>
+          <div class="live-dot"></div>
+          <span class="live-label">live</span>
+          <div class="toolbar-sep"></div>
+          <button class="toggle-btn active" id="editorToggle">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><polyline points="16 18 22 12 16 6"></polyline><polyline
+                points="8 6 2 12 8 18"></polyline>
+            </svg>
+            Editor
+          </button>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div class="sandbox-main">
+        <!-- Editor Panel -->
+        <div class="editor-panel" id="editorPanel">
+          <div class="panel-tabs">
+            <button class="panel-tab active" data-tab="html">HTML</button>
+            <button class="panel-tab" data-tab="css">CSS</button>
+            <button class="panel-tab" data-tab="js">JS</button>
+            <button class="panel-tab" data-tab="props">Props</button>
+            <button
+              class="panel-tab"
+              data-tab="raw"
+              style="margin-left:auto; color:var(--sb-accent)">AI Import</button
+            >
+          </div>
+          <div class="panel-body">
+            <div class="tab-pane active" id="tab-html">
+              <div class="code-area">
+                <textarea
+                  class="code-input"
+                  id="htmlInput"
+                  spellcheck="false"
+                  placeholder="<!-- Your component HTML here -->"></textarea>
+              </div>
+              <button class="apply-btn" id="applyHtml">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  ><polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Apply <kbd>⌘S</kbd>
+              </button>
+            </div>
+
+            <div class="tab-pane" id="tab-css">
+              <div class="code-area">
+                <textarea
+                  class="code-input"
+                  id="cssInput"
+                  spellcheck="false"
+                  placeholder="/* Component-specific styles only */"></textarea>
+              </div>
+              <button class="apply-btn" id="applyCss">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  ><polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Apply <kbd>⌘S</kbd>
+              </button>
+            </div>
+
+            <div class="tab-pane" id="tab-js">
+              <div class="code-area">
+                <textarea
+                  class="code-input"
+                  id="jsInput"
+                  spellcheck="false"
+                  placeholder="/* Component-specific JS only */"></textarea>
+              </div>
+              <button class="apply-btn" id="applyJs">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  ><polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Apply <kbd>⌘S</kbd>
+              </button>
+            </div>
+
+            <div class="tab-pane" id="tab-props">
+              <div class="props-list" id="propsList">
+                <p class="props-empty-msg">
+                  Props are declared in the HTML tab using <code
+                    >&#123;&#123;propName&#125;&#125;</code
+                  > syntax. They'll appear here automatically.
+                </p>
+              </div>
+              <button class="apply-btn" id="applyProps">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  ><polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Apply Props <kbd>⌘S</kbd>
+              </button>
+            </div>
+
+            <!-- Raw/AI Import Tab -->
+            <div class="tab-pane" id="tab-raw">
+              <div class="code-area" style="display: flex; flex-direction: column;">
+                <button
+                  class="apply-btn"
+                  id="copyAIPrompt"
+                  style="margin: 0 0 8px 0; background: var(--sb-surface2); border: 1px solid var(--sb-border); color: var(--sb-text);"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  Copy AI Prompt
+                </button>
+                <textarea
+                  class="code-input"
+                  id="rawInput"
+                  spellcheck="false"
+                  placeholder="Paste AI output here.\n\nRequired format separators:\n--- HTML ---\n--- CSS ---\n--- JS ---\n--- PROPS --- (Must be valid JSON)"
+                ></textarea>
+              </div>
+              <button class="apply-btn" id="applyRaw">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  ><polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Parse & Apply <kbd>⌘S</kbd>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resize Handle -->
+        <div class="resize-handle" id="resizeHandle"></div>
+
+        <!-- Preview -->
+        <div class="preview-area">
+          <div class="single-view" id="singleView">
+            <div class="frame-label">
+              <span class="frame-label-text" id="currentBpLabel"
+                >Full width</span
+              >
+              <span class="frame-size-badge" id="frameSizeBadge"></span>
+            </div>
+            <div class="frame-wrapper" id="frameWrapper">
+              <iframe id="previewFrame" title="Component preview"></iframe>
+            </div>
+          </div>
+
+          <div class="responsive-view" id="responsiveView" style="display:none">
+            <div class="resp-col">
+              <div class="frame-label">
+                <span class="frame-label-text">Desktop</span>
+                <span class="frame-size-badge">1280px</span>
+              </div>
+              <div class="frame-wrapper" style="width:1280px">
+                <iframe id="resp1280" title="Desktop preview"></iframe>
+              </div>
+            </div>
+            <div class="resp-col">
+              <div class="frame-label">
+                <span class="frame-label-text">Tablet</span>
+                <span class="frame-size-badge">768px</span>
+              </div>
+              <div class="frame-wrapper" style="width:768px">
+                <iframe id="resp768" title="Tablet preview"></iframe>
+              </div>
+            </div>
+            <div class="resp-col">
+              <div class="frame-label">
+                <span class="frame-label-text">Mobile</span>
+                <span class="frame-size-badge">390px</span>
+              </div>
+              <div class="frame-wrapper" style="width:390px">
+                <iframe id="resp390" title="Mobile preview"></iframe>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-
-  <!-- ═══════════════════════════════════════════════
-    SECTION: FEATURE CARDS
-    Custom class: section_features
-    Combo classes: section-style-subtle section-spacing-large
-  ═══════════════════════════════════════════════ -->
-  <section class="section_features section-style-subtle section-spacing-large" id="sandbox-section">
-    <div class="padding-global">
-      <div class="container-large">
-
-        <!-- Section header -->
-        <div class="features_header-wrapper margin-bottom-xlarge">
-          <p class="text-style-label text-color-brand margin-bottom-small">Features</p>
-          <h2 class="heading-style-h2 max-width-medium">
-            Everything you need to build
-          </h2>
-          <p class="text-color-secondary text-size-large max-width-medium margin-top-small">
-            A complete system from layout to typography, ready for your brand.
-          </p>
-        </div>
-
-        <!-- Feature grid -->
-        <div class="features_grid">
-          <div class="feature-card_component">
-            <div class="feature-card_icon-wrapper">
-              <svg class="icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
-            </div>
-            <h3 class="feature-card_heading heading-style-h5 margin-bottom-small">Client-First v2</h3>
-            <p class="feature-card_text text-color-secondary">
-              Full Finsweet naming convention — utility classes with dashes, custom classes with underscores.
-            </p>
-          </div>
-
-          <div class="feature-card_component">
-            <div class="feature-card_icon-wrapper">
-              <svg class="icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
-              </svg>
-            </div>
-            <h3 class="feature-card_heading heading-style-h5 margin-bottom-small">Isolated Sections</h3>
-            <p class="feature-card_text text-color-secondary">
-              Every section is namespaced with <code>section_[name]</code>. Build them independently, compose freely.
-            </p>
-          </div>
-
-          <div class="feature-card_component">
-            <div class="feature-card_icon-wrapper">
-              <svg class="icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-              </svg>
-            </div>
-            <h3 class="feature-card_heading heading-style-h5 margin-bottom-small">Brand Ready</h3>
-            <p class="feature-card_text text-color-secondary">
-              One CSS variable file controls all brand colors. Change <code>--color--brand</code> and the whole site updates.
-            </p>
-          </div>
-        </div>
-
-      </div>
+    <!-- Toast -->
+    <div class="sandbox-toast" id="toast">
+      <div class="toast-dot"></div>
+      <span id="toastMsg">Changes applied</span>
     </div>
-  </section>
 
+    <script is:inline>
+      var DEFAULT_HTML =
+        '<div class="card_component">\n  <div class="card_icon-wrapper">\n    <span class="card_icon">{{icon}}</span>\n  </div>\n  <h3 class="heading-style-h5 margin-bottom-xsmall">{{title}}</h3>\n  <p class="text-size-regular text-color-secondary">{{description}}</p>\n  <span class="card_arrow">\u2192</span>\n</div>';
 
-  <!-- ═══════════════════════════════════════════════
-    SECTION: DARK CTA
-    Custom class: section_cta
-    Combo classes: section-style-dark section-spacing-large
-  ═══════════════════════════════════════════════ -->
-  <section class="section_cta section-style-dark section-spacing-large">
-    <div class="padding-global">
-      <div class="container-medium">
-        <div class="cta_content-wrapper">
-          <p class="text-style-label text-color-brand margin-bottom-small">Get started</p>
-          <h2 class="heading-style-h2 text-color-inverted margin-bottom-medium">
-            Ready to build something great?
-          </h2>
-          <p class="text-color-muted text-size-large margin-bottom-large max-width-medium">
-            This starter is your foundation. Clone it, customize the brand colors, and start building sections.
-          </p>
-          <div class="cta_button-group">
-            <a href="/styleguide" class="button-primary is-large">See the Styleguide</a>
-            <a href="#" class="button-neutral is-large">Read the Docs</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      var DEFAULT_CSS =
+        "/* Component-specific styles \u2014 client-first.css is already loaded */\n.card_component {\n  padding: var(--spacing--large);\n  border-radius: var(--radius-large);\n  border: 1px solid var(--color--border);\n  background: var(--color--bg-primary);\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  max-width: 360px;\n  cursor: pointer;\n  transition: border-color 350ms ease, box-shadow 350ms ease, transform 350ms ease;\n}\n.card_component:hover {\n  border-color: var(--color--brand);\n  box-shadow: 0 8px 30px rgba(0,0,0,0.08);\n  transform: translateY(-4px);\n}\n.card_icon-wrapper {\n  width: 2.75rem; height: 2.75rem;\n  border-radius: var(--radius-medium);\n  background: var(--color--brand-light);\n  display: grid; place-items: center;\n  transition: background 350ms ease;\n}\n.card_component:hover .card_icon-wrapper { background: var(--color--brand); }\n.card_icon { font-size: 1.4rem; transition: filter 350ms ease; }\n.card_component:hover .card_icon { filter: brightness(10); }\n.card_arrow {\n  font-size: 1.1rem; color: var(--color--brand);\n  opacity: 0; display: inline-block;\n  transition: transform 350ms ease, opacity 350ms ease;\n}\n.card_component:hover .card_arrow { transform: translateX(5px); opacity: 1; }";
 
-</Base>
+      var DEFAULT_PROPS = {
+        icon: "\u26a1",
+        title: "Instant builds",
+        description: "Zero config. Ship in seconds with Client-First.",
+      };
 
-<style>
-  /* ===== hero section ===== */
-  .hero_content-wrapper {
-    max-width: 48rem;
-  }
+      var DEFAULT_JS =
+        '// Add your JavaScript here\nconsole.log("Component loaded");';
 
-  .hero_label {
-    display: inline-block;
-  }
+      var currentHtml = DEFAULT_HTML;
+      var currentCss = DEFAULT_CSS;
+      var currentJs = DEFAULT_JS;
+      var currentProps = Object.assign({}, DEFAULT_PROPS);
+      var isResponsive = false;
+      var editorOpen = true;
 
-  .hero_heading {
-    letter-spacing: -0.03em;
-  }
+      var htmlInput = document.getElementById("htmlInput");
+      var cssInput = document.getElementById("cssInput");
+      var jsInput = document.getElementById("jsInput");
+      var rawInput = document.getElementById("rawInput");
+      var propsList = document.getElementById("propsList");
+      var editorPanel = document.getElementById("editorPanel");
+      var editorToggle = document.getElementById("editorToggle");
+      var frameWrapper = document.getElementById("frameWrapper");
+      var singleView = document.getElementById("singleView");
+      var responsiveView = document.getElementById("responsiveView");
+      var currentBpLabel = document.getElementById("currentBpLabel");
+      var frameSizeBadge = document.getElementById("frameSizeBadge");
+      var previewFrame = document.getElementById("previewFrame");
+      var resp1280 = document.getElementById("resp1280");
+      var resp768 = document.getElementById("resp768");
+      var resp390 = document.getElementById("resp390");
+      var resizeHandle = document.getElementById("resizeHandle");
+      var toast = document.getElementById("toast");
+      var toastMsg = document.getElementById("toastMsg");
 
-  .hero_heading-accent {
-    color: var(--color--brand);
-  }
+      htmlInput.value = DEFAULT_HTML;
+      cssInput.value = DEFAULT_CSS;
+      jsInput.value = DEFAULT_JS;
 
-  .hero_button-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing--small);
-    align-items: center;
-  }
+      function getPageStylesheetLinks() {
+        var links = Array.from(
+          document.querySelectorAll('link[rel="stylesheet"]')
+        )
+          .map(function (l) {
+            return '<link rel="stylesheet" href="' + l.href + '">';
+          })
+          .join("\n");
+        var styles = Array.from(document.querySelectorAll("style"))
+          .map(function (s) {
+            return s.outerHTML;
+          })
+          .join("\n");
+        return links + "\n" + styles;
+      }
 
-  /* ===== features section ===== */
-  .features_header-wrapper {
-    max-width: 42rem;
-  }
+      function detectProps(text) {
+        var matches = Array.from(text.matchAll(/\{\{(\w+)\}\}/g));
+        var seen = {};
+        return matches
+          .map(function (m) {
+            return m[1];
+          })
+          .filter(function (k) {
+            if (seen[k]) return false;
+            seen[k] = true;
+            return true;
+          });
+      }
 
-  .features_grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing--large);
-  }
+      function renderPropsUI() {
+        var combinedSource = currentHtml + "\n" + currentCss + "\n" + currentJs;
+        var keys = detectProps(combinedSource);
+        if (keys.length === 0) {
+          propsList.innerHTML =
+            '<p class="props-empty-msg">No props detected. Use <code>{{propName}}</code> in your code.</p>';
+          return;
+        }
+        propsList.innerHTML = keys
+          .map(function (key) {
+            var isTextarea =
+              key.toLowerCase().includes("description") ||
+              key.toLowerCase().includes("text") ||
+              key.toLowerCase().includes("body");
+            var val = currentProps[key] || "";
+            if (isTextarea) {
+              return (
+                '<div class="prop-row"><label class="prop-label">' +
+                key +
+                '</label><textarea class="prop-input" data-key="' +
+                key +
+                '" rows="3">' +
+                val +
+                "</textarea></div>"
+              );
+            }
+            return (
+              '<div class="prop-row"><label class="prop-label">' +
+              key +
+              '</label><input class="prop-input" type="text" data-key="' +
+              key +
+              '" value="' +
+              val +
+              '" /></div>'
+            );
+          })
+          .join("");
+        propsList.querySelectorAll("[data-key]").forEach(function (el) {
+          el.addEventListener("input", function () {
+            currentProps[el.dataset.key] = el.value;
+          });
+        });
+      }
 
-  @media (max-width: 767px) {
-    .features_grid { grid-template-columns: 1fr; }
-  }
+      function interpolateProps(html, props) {
+        return html.replace(/\{\{(\w+)\}\}/g, function (_, key) {
+          return props[key] !== undefined ? props[key] : "{{" + key + "}}";
+        });
+      }
 
-  /* ===== feature card ===== */
-  .feature-card_component {
-    padding: var(--spacing--large);
-    background-color: var(--color--bg-primary);
-    border: 1px solid var(--color--border);
-    border-radius: var(--radius-large);
-  }
+      function buildDocument(html, css, js, props) {
+        return (
+          '<!DOCTYPE html><html lang="en"><head>\n<meta charset="UTF-8"/>\n<meta name="viewport" content="width=device-width,initial-scale=1"/>\n' +
+          getPageStylesheetLinks() +
+          "\n<style>body{padding:2rem}" +
+          interpolateProps(css, props) +
+          "</style>\n</head><body>" +
+          interpolateProps(html, props) +
+          "\n<script>" +
+          interpolateProps(js, props) +
+          "<" +
+          "/script>" +
+          "\n</body></html>"
+        );
+      }
 
-  .feature-card_icon-wrapper {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: var(--radius-medium);
-    background-color: var(--color--brand-light);
-    color: var(--color--brand);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: var(--spacing--medium);
-  }
+      function writeToFrame(iframe, doc) {
+        iframe.srcdoc = doc;
+        iframe.onload = function () {
+          try {
+            iframe.style.height = "0px"; // Reset before measuring
+            var h = iframe.contentDocument.body.scrollHeight;
+            iframe.style.height = h + 40 + "px";
+          } catch (e) {}
+        };
+      }
 
-  /* ===== cta section ===== */
-  .cta_content-wrapper {
-    text-align: center;
-  }
+      // Function to parse the raw AI string
+      function parseRawInput() {
+        var rawText = rawInput.value;
+        if (!rawText.trim()) return;
 
-  .cta_button-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing--small);
-    justify-content: center;
-  }
+        // Split by the separators: --- HTML ---, --- CSS ---, etc.
+        var parts = rawText.split(
+          /(?:^|\n)---\s*(HTML|CSS|JS|PROPS)\s*---(?:\n|$)/i
+        );
 
-  code {
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-    background-color: var(--color--neutral-100);
-    padding: 0.125rem 0.375rem;
-    border-radius: var(--radius-small);
-    color: var(--color--brand);
-  }
-</style>
+        var didUpdate = false;
+        // parts[0] is everything before the first match
+        for (var i = 1; i < parts.length; i += 2) {
+          var sectionName = parts[i].toUpperCase();
+          var content = parts[i + 1].trim().replace(/^```[a-z]*\s*\n?/i, '').replace(/\n?```\s*$/i, '').trim();
+
+          if (sectionName === "HTML") {
+            htmlInput.value = content;
+            didUpdate = true;
+          } else if (sectionName === "CSS") {
+            cssInput.value = content;
+            didUpdate = true;
+          } else if (sectionName === "JS") {
+            jsInput.value = content;
+            didUpdate = true;
+          } else if (sectionName === "PROPS") {
+            try {
+              var parsedProps = JSON.parse(content);
+              currentProps = parsedProps;
+              didUpdate = true;
+            } catch (e) {
+              console.error("Failed to parse PROPS as JSON: ", e);
+              showToast("Error parsing Props JSON");
+            }
+          }
+        }
+
+        if (didUpdate) {
+          applyChanges();
+        } else {
+          showToast("No sections matched.");
+        }
+      }
+
+      function applyChanges() {
+        currentHtml = htmlInput.value;
+        currentCss = cssInput.value;
+        currentJs = jsInput.value;
+        propsList.querySelectorAll("[data-key]").forEach(function (el) {
+          currentProps[el.dataset.key] = el.value;
+        });
+        renderPropsUI();
+        var doc = buildDocument(
+          currentHtml,
+          currentCss,
+          currentJs,
+          currentProps
+        );
+        if (isResponsive) {
+          writeToFrame(resp1280, doc);
+          writeToFrame(resp768, doc);
+          writeToFrame(resp390, doc);
+        } else {
+          writeToFrame(previewFrame, doc);
+        }
+        showToast("Applied \u2713");
+      }
+
+      renderPropsUI();
+      applyChanges();
+
+      // Breakpoints
+      document.querySelectorAll(".bp-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".bp-btn").forEach(function (b) {
+            b.classList.remove("active");
+          });
+          btn.classList.add("active");
+          var bp = btn.dataset.bp;
+          isResponsive = bp === "responsive";
+          var labels = {
+            full: "Full width",
+            "1280": "Desktop \u2014 1280px",
+            "1024": "Laptop \u2014 1024px",
+            "768": "Tablet \u2014 768px",
+            "390": "Mobile \u2014 390px",
+          };
+          if (isResponsive) {
+            singleView.style.display = "none";
+            responsiveView.style.display = "flex";
+          } else {
+            singleView.style.display = "flex";
+            responsiveView.style.display = "none";
+            currentBpLabel.textContent = labels[bp] || bp;
+            frameWrapper.style.width = bp === "full" ? "100%" : bp + "px";
+            frameSizeBadge.textContent = bp === "full" ? "" : bp + "px";
+          }
+          applyChanges();
+        });
+      });
+
+      // Tabs
+      document.querySelectorAll(".panel-tab").forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var name = tab.dataset.tab;
+          document.querySelectorAll(".panel-tab").forEach(function (t) {
+            t.classList.remove("active");
+          });
+          tab.classList.add("active");
+          document.querySelectorAll(".tab-pane").forEach(function (p) {
+            p.classList.remove("active");
+          });
+          document.getElementById("tab-" + name).classList.add("active");
+          if (name === "props") {
+            currentHtml = htmlInput.value;
+            renderPropsUI();
+          }
+        });
+      });
+
+      // Editor toggle
+      editorToggle.addEventListener("click", function () {
+        editorOpen = !editorOpen;
+        editorPanel.classList.toggle("collapsed", !editorOpen);
+        editorToggle.classList.toggle("active", editorOpen);
+      });
+
+      // Apply buttons
+      document
+        .getElementById("applyHtml")
+        .addEventListener("click", applyChanges);
+      document
+        .getElementById("applyCss")
+        .addEventListener("click", applyChanges);
+      document
+        .getElementById("applyJs")
+        .addEventListener("click", applyChanges);
+      document
+        .getElementById("applyProps")
+        .addEventListener("click", applyChanges);
+      document
+        .getElementById("applyRaw")
+        .addEventListener("click", parseRawInput);
+
+      document.getElementById("copyAIPrompt").addEventListener("click", function() {
+        var promptText = "Please write the component for me using the following exact format. Output everything together in ONE single response block/file. Always include the separators exactly as shown, even if a section is empty.\n\nIMPORTANT for Props: Use the syntax {{propName}} directly inside your HTML, CSS, or JS to substitute variables natively. For the PROPS section, please provide valid JSON representing the properties the component expects.\n\n--- HTML ---\n<!-- your HTML here, e.g., <h1>{{title}}</h1> -->\n\n--- CSS ---\n/* your CSS here */\n\n--- JS ---\n// your JS here\n\n--- PROPS ---\n{\n  \"title\": \"Example Title\"\n}";
+        navigator.clipboard.writeText(promptText).then(function() {
+          showToast("AI Prompt copied!");
+        }).catch(function(err) {
+          console.error("Could not copy text: ", err);
+          showToast("Failed to copy");
+        });
+      });
+
+      var exportAstroBtn = document.getElementById("exportAstroBtn");
+      exportAstroBtn.addEventListener("click", function() {
+        var html = htmlInput.value;
+        var css = cssInput.value;
+        var js = jsInput.value;
+        var keys = detectProps(html + "\n" + css + "\n" + js);
+
+        var finalAstro = "";
+
+        // 1. Frontmatter
+        if (keys.length > 0) {
+          finalAstro += "---\n";
+          finalAstro += "const { " + keys.join(", ") + " } = Astro.props;\n";
+          finalAstro += "---\n\n";
+        }
+
+        // 2. HTML (replace {{prop}} with {prop})
+        var finalHtml = html.replace(/\{\{(\w+)\}\}/g, function(_, key) {
+          return "{" + key + "}";
+        });
+        if (finalHtml.trim()) {
+           finalAstro += finalHtml + "\n\n";
+        }
+
+        // 3. CSS (define:vars and replace {{prop}} with var(--prop))
+        if (css.trim()) {
+          if (keys.length > 0) {
+            finalAstro += "<style define:vars={{ " + keys.join(", ") + " }}>\n";
+          } else {
+            finalAstro += "<style>\n";
+          }
+          var finalCss = css.replace(/\{\{(\w+)\}\}/g, function(_, key) {
+            return "var(--" + key + ")";
+          });
+          finalAstro += finalCss + "\n</style>\n\n";
+        }
+
+        // 4. JS (define:vars and replace {{prop}} with prop)
+        if (js.trim()) {
+          if (keys.length > 0) {
+            finalAstro += "<script define:vars={{ " + keys.join(", ") + " }}>\n";
+          } else {
+            finalAstro += "<script>\n";
+          }
+          var finalJs = js.replace(/\{\{(\w+)\}\}/g, function(_, key) {
+            return key;
+          });
+          finalAstro += finalJs + "\n<" + "/script>\n";
+        }
+
+        var blob = new Blob([finalAstro], { type: "text/plain" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "Component.astro";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        showToast("Exported Component.astro!");
+      });
+
+      // Keyboard shortcut
+      document.addEventListener("keydown", function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+          e.preventDefault();
+          // If in raw tab, parse it
+          if (document.getElementById("tab-raw").classList.contains("active")) {
+            parseRawInput();
+          } else {
+            applyChanges();
+          }
+        }
+      });
+
+      // Panel resize
+      var dragging = false,
+        startX = 0,
+        startW = 0;
+      resizeHandle.addEventListener("mousedown", function (e) {
+        dragging = true;
+        startX = e.clientX;
+        startW = editorPanel.offsetWidth;
+        resizeHandle.classList.add("dragging");
+        document.body.style.userSelect = "none";
+        document.body.style.cursor = "col-resize";
+      });
+      document.addEventListener("mousemove", function (e) {
+        if (!dragging) return;
+        editorPanel.style.width =
+          Math.max(240, Math.min(600, startW + (e.clientX - startX))) + "px";
+      });
+      document.addEventListener("mouseup", function () {
+        if (!dragging) return;
+        dragging = false;
+        resizeHandle.classList.remove("dragging");
+        document.body.style.userSelect = "";
+        document.body.style.cursor = "";
+      });
+
+      // Toast
+      var toastTimer;
+      function showToast(msg) {
+        toastMsg.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.remove("show");
+        }, 1800);
+      }
+
+      // Live debounced updates
+      var cssDebounce;
+      cssInput.addEventListener("input", function () {
+        clearTimeout(cssDebounce);
+        cssDebounce = setTimeout(applyChanges, 300);
+      });
+
+      var jsDebounce;
+      jsInput.addEventListener("input", function () {
+        clearTimeout(jsDebounce);
+        jsDebounce = setTimeout(applyChanges, 300);
+      });
+
+      var htmlDebounce;
+      htmlInput.addEventListener("input", function () {
+        clearTimeout(htmlDebounce);
+        htmlDebounce = setTimeout(function () {
+          currentHtml = htmlInput.value;
+          renderPropsUI();
+          applyChanges();
+        }, 400);
+      });
+    </script>
+  </body>
+</html>
