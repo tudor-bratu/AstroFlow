@@ -19,7 +19,7 @@ Built for developers who want Webflow's design clarity without the vendor lock-i
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/astroflow.git my-project
+git clone https://github.com/tudor-bratu/astroflow.git my-project
 cd my-project
 npm install
 npm run dev
